@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "skills": {
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "localCustomization": "Customized for the Tertiary Workplace Learning static website.",
+      "computedHash": "662bf476562a9762a1b10f7f2e95163494fd5ef3e67cf59a92912ddc3e9e8804"
+    }
+  }
+}
