@@ -298,7 +298,12 @@ h3 {
 }
 
 .grant-band {
+  padding-bottom: clamp(8px, 0.8vw, 10px);
   background: #edf5f1;
+}
+
+#process {
+  padding-top: clamp(8px, 0.8vw, 10px);
 }
 
 .section-heading {
@@ -1464,6 +1469,14 @@ figcaption {
 
   .funding-note {
     grid-template-columns: 1fr;
+  }
+
+  .grant-band {
+    padding-bottom: 10px;
+  }
+
+  #process {
+    padding-top: 10px;
   }
 
   .site-header nav {
