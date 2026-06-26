@@ -43,6 +43,8 @@ document.querySelectorAll("[data-fill-lead]").forEach((button) => {
   button.addEventListener("click", () => {
     const leadMagnet = document.querySelector('[name="leadMagnet"]');
     if (leadMagnet) leadMagnet.value = button.dataset.fillLead;
+    const leadMagnetSource = document.querySelector('[name="leadMagnetSource"]');
+    if (leadMagnetSource) leadMagnetSource.value = "lead magnet card";
   });
 });
 

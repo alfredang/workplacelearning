@@ -467,13 +467,31 @@ li + li {
   color: rgba(255, 255, 255, 0.78);
 }
 
+.lead-proof-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.lead-proof-strip span {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
 .lead-magnet-options {
   display: grid;
   gap: 10px;
 }
 
 .lead-magnet-card {
-  display: block;
+  display: grid;
+  gap: 5px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   padding: 14px 16px;
@@ -495,17 +513,31 @@ li + li {
   display: block;
 }
 
-.lead-magnet-card span {
-  margin-top: 4px;
+.lead-magnet-card > span:not(.lead-tag):not(.lead-card-cta) {
   color: rgba(255, 255, 255, 0.72);
   font-size: 0.92rem;
 }
 
-.testimonials {
-  background: #fff;
+.lead-tag {
+  justify-self: start;
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: var(--green-dark);
+  background: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
-.portfolio-section {
+.lead-card-cta {
+  margin-top: 4px;
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.testimonials {
   background: #fff;
 }
 
@@ -534,6 +566,8 @@ figcaption {
 .portfolio-showcase {
   display: grid;
   gap: 16px;
+  margin-top: 18px;
+  scroll-margin-top: 92px;
   padding: clamp(18px, 3vw, 26px);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -637,6 +671,12 @@ figcaption {
 
 .enquiry-form textarea {
   resize: vertical;
+}
+
+.input-hint {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .enquiry-form .full {
