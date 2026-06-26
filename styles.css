@@ -897,20 +897,33 @@ figcaption {
   }
 
   .wa-launcher {
-    width: fit-content;
-    min-height: 54px;
-    gap: 9px;
+    width: 58px;
+    height: 58px;
+    min-height: 58px;
+    justify-content: center;
+    gap: 0;
     border-width: 6px;
-    padding: 10px 16px;
+    padding: 0;
   }
 
   .wa-launcher-icon {
-    width: 26px;
-    height: 26px;
-    flex-basis: 26px;
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+
+  .wa-launcher-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 
   .wa-launcher-badge {
+    top: -11px;
+    right: -10px;
     min-width: 32px;
     height: 32px;
     font-size: 0.86rem;
