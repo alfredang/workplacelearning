@@ -537,16 +537,16 @@ figcaption {
   position: relative;
   display: inline-flex;
   max-width: 100%;
-  min-height: 68px;
+  min-height: 54px;
   align-items: center;
-  gap: 16px;
-  border: 9px solid rgba(13, 92, 65, 0.68);
+  gap: 10px;
+  border: 6px solid rgba(13, 92, 65, 0.68);
   border-radius: 999px;
-  padding: 14px 28px;
+  padding: 10px 20px;
   color: #fff;
   background: #25d366;
-  box-shadow: 0 18px 46px rgba(37, 211, 102, 0.32), 0 8px 22px rgba(5, 31, 23, 0.26);
-  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  box-shadow: 0 14px 34px rgba(37, 211, 102, 0.28), 0 6px 16px rgba(5, 31, 23, 0.22);
+  font-size: clamp(0.88rem, 1.2vw, 1rem);
   font-weight: 900;
   line-height: 1;
   cursor: pointer;
@@ -559,7 +559,7 @@ figcaption {
 
 .wa-launcher:hover {
   background: #1ec75c;
-  box-shadow: 0 22px 54px rgba(37, 211, 102, 0.4), 0 10px 26px rgba(5, 31, 23, 0.3);
+  box-shadow: 0 18px 42px rgba(37, 211, 102, 0.36), 0 8px 20px rgba(5, 31, 23, 0.26);
   transform: translateY(-2px);
 }
 
@@ -574,26 +574,26 @@ figcaption {
 
 .wa-launcher-icon {
   display: grid;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
   place-items: center;
 }
 
 .wa-launcher-badge {
   position: absolute;
-  top: -12px;
-  right: -9px;
+  top: -10px;
+  right: -8px;
   display: grid;
-  min-width: 46px;
-  height: 46px;
+  min-width: 32px;
+  height: 32px;
   place-items: center;
-  border: 4px solid #fff;
+  border: 3px solid #fff;
   border-radius: 50%;
   color: #fff;
   background: #f24b5d;
   box-shadow: 0 8px 20px rgba(242, 75, 93, 0.28);
-  font-size: 1.1rem;
+  font-size: 0.88rem;
   font-weight: 900;
 }
 
@@ -854,21 +854,21 @@ figcaption {
 
   .wa-launcher {
     width: fit-content;
-    min-height: 60px;
-    gap: 10px;
-    border-width: 7px;
-    padding: 12px 16px;
+    min-height: 50px;
+    gap: 8px;
+    border-width: 5px;
+    padding: 9px 14px;
   }
 
   .wa-launcher-icon {
-    width: 28px;
-    height: 28px;
-    flex-basis: 28px;
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
   }
 
   .wa-launcher-badge {
-    min-width: 38px;
-    height: 38px;
-    font-size: 0.96rem;
+    min-width: 30px;
+    height: 30px;
+    font-size: 0.82rem;
   }
 }
