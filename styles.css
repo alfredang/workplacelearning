@@ -923,10 +923,9 @@ figcaption {
   }
 
   .wa-widget {
-    left: 12px;
-    right: auto;
+    right: 12px;
     bottom: 12px;
-    justify-items: start;
+    justify-items: end;
     max-width: calc(100vw - 24px);
   }
 
