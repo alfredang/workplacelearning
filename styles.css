@@ -332,56 +332,57 @@ li + li {
 }
 
 .timeline {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0;
+  gap: 16px;
   padding: 0;
-  margin: 22px 0 0;
+  margin: 34px 0 0;
   list-style: none;
   counter-reset: steps;
 }
 
-.timeline li {
-  position: relative;
-  min-height: 225px;
-  padding: 24px 20px;
-  border-top: 4px solid var(--green);
-  border-right: 1px solid var(--line);
-  background: #fff;
-}
-
-.timeline li:first-child {
-  border-left: 1px solid var(--line);
-  border-radius: 8px 0 0 8px;
-}
-
-.timeline li:last-child {
-  border-radius: 0 8px 8px 0;
-}
-
-.timeline li::after {
+.timeline::before {
   content: "";
   position: absolute;
-  top: -13px;
-  right: -11px;
-  z-index: 1;
-  width: 22px;
-  height: 22px;
-  border-top: 4px solid var(--green);
-  border-right: 4px solid var(--green);
-  background: #fff;
-  transform: rotate(45deg);
+  top: 0;
+  left: 44px;
+  right: 44px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--green), #2f8f77);
 }
 
-.timeline li:last-child::after {
-  display: none;
+.timeline li {
+  position: relative;
+  z-index: 1;
+  min-height: 230px;
+  padding: 46px 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(15, 61, 59, 0.06);
+}
+
+.timeline li + li {
+  margin-top: 0;
 }
 
 .step {
+  position: absolute;
+  top: -24px;
+  left: 20px;
   display: inline-flex;
-  margin-bottom: 26px;
-  color: var(--coral);
-  font-size: 0.85rem;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border: 6px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--green);
+  box-shadow: 0 10px 22px rgba(15, 61, 62, 0.18);
+  font-size: 0.82rem;
   font-weight: 900;
 }
 
@@ -866,27 +867,39 @@ figcaption {
 
   .timeline {
     grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .timeline::before {
+    top: 39px;
+    bottom: 20px;
+    left: 39px;
+    right: auto;
+    width: 4px;
+    height: auto;
   }
 
   .timeline li,
   .timeline li:first-child,
   .timeline li:last-child {
     min-height: auto;
+    padding: 18px 18px 18px 70px;
     border: 1px solid var(--line);
-    border-left: 4px solid var(--green);
     border-radius: 8px;
   }
 
   .timeline li + li {
-    margin-top: 10px;
-  }
-
-  .timeline li::after {
-    display: none;
+    margin-top: 0;
   }
 
   .step {
-    margin-bottom: 14px;
+    top: 18px;
+    left: 18px;
+    width: 42px;
+    height: 42px;
+    border-width: 5px;
+    font-size: 0.76rem;
   }
 }
 
