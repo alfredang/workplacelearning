@@ -9,7 +9,7 @@
 
 **LEA and NACE workplace learning project website for Singapore enterprises exploring AI transformation, job redesign, and grant-fit discovery.**
 
-[Live Demo](https://alfredang.github.io/workplacelearning/) · [Report Bug](https://github.com/alfredang/workplacelearning/issues) · [Request Feature](https://github.com/alfredang/workplacelearning/issues)
+[Live Demo](https://workplacelearning.tertiaryinfotech.com/) · [Report Bug](https://github.com/alfredang/workplacelearning/issues) · [Request Feature](https://github.com/alfredang/workplacelearning/issues)
 
 </div>
 
@@ -157,7 +157,7 @@ On every push to `main`, GitHub Pages uploads the static site from the repositor
 Expected Pages URL:
 
 ```text
-https://alfredang.github.io/workplacelearning/
+https://workplacelearning.tertiaryinfotech.com/
 ```
 
 ## References
