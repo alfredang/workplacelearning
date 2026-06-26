@@ -44,7 +44,9 @@ if (form && statusEl) {
 
       const result = await response.json().catch(() => ({
         ok: response.ok,
-        message: response.ok ? "Thank you. Your enquiry has been sent." : "Unable to send enquiry."
+        message: response.ok
+          ? "Thank you for your submission, we will get back to you as soon as possible."
+          : "Unable to send enquiry."
       }));
 
       if (!response.ok || !result.ok) {
@@ -52,7 +54,8 @@ if (form && statusEl) {
       }
 
       statusEl.classList.add("success");
-      statusEl.textContent = result.message || "Thank you. Your enquiry has been sent.";
+      statusEl.textContent =
+        result.message || "Thank you for your submission, we will get back to you as soon as possible.";
       form.reset();
     } catch (error) {
       statusEl.classList.add("error");

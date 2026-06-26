@@ -61,7 +61,7 @@
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ { \"ok\": true, \"message\": \"Thank you. Your enquiry has been sent. We will send the selected resource and next step shortly.\", \"leadStatus\": $(\"Normalize Lead\").item.json.leadStatus, \"leadMagnet\": $(\"Normalize Lead\").item.json.leadMagnet } }}",
+        "responseBody": "={{ { \"ok\": true, \"message\": \"Thank you for your submission, we will get back to you as soon as possible.\", \"leadStatus\": $(\"Normalize Lead\").item.json.leadStatus, \"leadMagnet\": $(\"Normalize Lead\").item.json.leadMagnet } }}",
         "options": {
           "responseHeaders": {
             "entries": [
