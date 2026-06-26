@@ -1,7 +1,5 @@
 const form = document.querySelector("#enquiryForm");
 const statusEl = document.querySelector("#formStatus");
-const whatsappToggle = document.querySelector(".whatsapp-toggle");
-const whatsappPanel = document.querySelector("#whatsappPanel");
 
 document.querySelectorAll("[data-fill-lead]").forEach((button) => {
   button.addEventListener("click", () => {
@@ -48,10 +46,68 @@ if (form && statusEl) {
   });
 }
 
-if (whatsappToggle && whatsappPanel) {
-  whatsappToggle.addEventListener("click", () => {
-    const expanded = whatsappToggle.getAttribute("aria-expanded") === "true";
-    whatsappToggle.setAttribute("aria-expanded", String(!expanded));
-    whatsappPanel.hidden = expanded;
+(function whatsappWidget() {
+  const widget = document.getElementById("waWidget");
+  if (!widget) return;
+
+  const phone = "6596983731";
+  const launcher = document.getElementById("waLauncher");
+  const panel = document.getElementById("waPanel");
+  const closeBtn = document.getElementById("waClose");
+  const suggestions = document.getElementById("waSuggestions");
+  const compose = document.getElementById("waCompose");
+  const input = document.getElementById("waInput");
+
+  if (!launcher || !panel) return;
+
+  const openWhatsApp = (message) => {
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener");
+  };
+
+  const openPanel = () => {
+    panel.hidden = false;
+    launcher.setAttribute("aria-expanded", "true");
+    if (input) input.focus();
+  };
+
+  const closePanel = () => {
+    panel.hidden = true;
+    launcher.setAttribute("aria-expanded", "false");
+    launcher.focus();
+  };
+
+  launcher.addEventListener("click", () => {
+    if (panel.hidden) {
+      openPanel();
+    } else {
+      closePanel();
+    }
   });
-}
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closePanel);
+  }
+
+  if (suggestions) {
+    suggestions.addEventListener("click", (event) => {
+      const chip = event.target.closest(".wa-chip");
+      if (!chip) return;
+      openWhatsApp(chip.textContent.trim());
+    });
+  }
+
+  if (compose && input) {
+    compose.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const message = input.value.trim();
+      if (!message) return;
+      openWhatsApp(message);
+      input.value = "";
+    });
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !panel.hidden) closePanel();
+  });
+})();
