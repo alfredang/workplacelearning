@@ -326,10 +326,70 @@ li + li {
 }
 
 .source-note {
-  max-width: 980px;
-  margin: 14px 0 0;
+  margin: 18px 0 0;
+}
+
+.funding-note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: clamp(18px, 3vw, 26px);
+  border: 1px solid rgba(15, 61, 62, 0.14);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 248, 0.92)),
+    #fff;
+  box-shadow: 0 16px 42px rgba(15, 61, 59, 0.08);
+}
+
+.funding-note-mark {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--green);
+  box-shadow: 0 12px 24px rgba(15, 61, 62, 0.18);
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.funding-note-content h3 {
+  max-width: 760px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  line-height: 1.15;
+}
+
+.funding-note-label {
+  margin: 0 0 8px;
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.funding-note-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.funding-note-grid p {
+  margin: 0;
   color: var(--muted);
-  font-size: 0.94rem;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.funding-note-grid strong {
+  color: var(--green-dark);
+  font-weight: 900;
 }
 
 .timeline {
@@ -901,6 +961,7 @@ figcaption {
   .hero-stats,
   .split,
   .grant-cards,
+  .funding-note-grid,
   .testimonial-grid,
   .enquiry-section,
   .lead-panel {
@@ -993,6 +1054,10 @@ figcaption {
     padding-bottom: 34px;
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .funding-note {
+    grid-template-columns: 1fr;
   }
 
   .site-header nav {
