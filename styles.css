@@ -755,9 +755,10 @@ figcaption {
 .site-footer {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(240px, 0.76fr) minmax(300px, 0.92fr) minmax(300px, 0.92fr);
-  gap: clamp(24px, 4vw, 58px);
-  padding: clamp(38px, 5vw, 58px) clamp(18px, 5vw, 72px) 28px;
+  grid-template-columns: minmax(230px, 0.72fr) minmax(330px, 1fr) minmax(300px, 0.88fr);
+  align-items: start;
+  gap: clamp(22px, 3.2vw, 48px);
+  padding: clamp(30px, 4vw, 42px) clamp(18px, 5vw, 72px) 22px;
   color: rgba(230, 243, 239, 0.78);
   background:
     radial-gradient(circle at 8% 0%, rgba(56, 163, 165, 0.2), transparent 34%),
@@ -786,19 +787,19 @@ figcaption {
 .footer-brand {
   display: grid;
   align-content: start;
-  gap: 16px;
-  max-width: 470px;
+  gap: 13px;
+  max-width: 390px;
 }
 
 .footer-brand p:not(.footer-title) {
   color: rgba(230, 243, 239, 0.72);
-  font-size: 0.98rem;
-  line-height: 1.7;
+  font-size: 0.94rem;
+  line-height: 1.58;
 }
 
 .footer-title {
   color: #fff;
-  font-size: 1.18rem;
+  font-size: 1.08rem;
   font-weight: 900;
   line-height: 1.2;
 }
@@ -814,13 +815,13 @@ figcaption {
 .footer-socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 9px;
 }
 
 .footer-socials a {
   position: relative;
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -850,22 +851,22 @@ figcaption {
 }
 
 .footer-socials svg {
-  width: 20px;
-  height: 20px;
-  flex: 0 0 20px;
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
   fill: currentColor;
 }
 
 .footer-nav {
   display: grid;
   align-content: start;
-  gap: 14px;
+  gap: 11px;
 }
 
 .footer-nav ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px 18px;
+  gap: 6px 20px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -873,8 +874,9 @@ figcaption {
 
 .footer-nav a {
   color: rgba(230, 243, 239, 0.78);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
+  line-height: 1.35;
   text-decoration: none;
   transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -887,19 +889,19 @@ figcaption {
 .footer-contact {
   display: grid;
   align-content: start;
-  gap: 13px;
+  gap: 10px;
   font-style: normal;
 }
 
 .footer-contact-row {
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr);
-  gap: 13px;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 11px;
   align-items: start;
   color: rgba(230, 243, 239, 0.78);
-  font-size: 0.96rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 1.42;
   text-decoration: none;
   transition: color 0.2s ease, transform 0.2s ease;
 }
@@ -910,8 +912,8 @@ figcaption {
 }
 
 .footer-contact-row svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   margin-top: 1px;
   fill: #6de6ef;
 }
@@ -919,10 +921,10 @@ figcaption {
 .powered-by {
   grid-column: 1 / -1;
   width: 100%;
-  padding-top: 22px;
+  padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
   color: rgba(230, 243, 239, 0.62);
-  font-size: 0.9rem;
+  font-size: 0.86rem;
 }
 
 .wa-widget {
@@ -1419,8 +1421,8 @@ figcaption {
   }
 
   .site-footer {
-    gap: 22px;
-    padding: 30px 16px 104px;
+    gap: 18px;
+    padding: 26px 16px 92px;
   }
 
   .portfolio-showcase-heading {
