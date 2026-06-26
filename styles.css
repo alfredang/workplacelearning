@@ -709,11 +709,10 @@ figcaption {
 }
 
 .site-footer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 28px clamp(18px, 5vw, 72px);
+  display: grid;
+  grid-template-columns: minmax(240px, 0.78fr) minmax(210px, 0.55fr) minmax(0, 1.2fr);
+  gap: clamp(24px, 3.5vw, 44px);
+  padding: clamp(28px, 5vw, 48px) clamp(18px, 5vw, 72px) 28px;
   color: rgba(255, 255, 255, 0.78);
   background: #092122;
 }
@@ -726,8 +725,135 @@ figcaption {
   color: #fff;
 }
 
+.footer-brand {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  max-width: 520px;
+}
+
+.footer-title {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.footer-kicker {
+  color: #5fe7f5;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-socials a,
+.footer-portfolio-heading a {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  padding: 8px 12px;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.footer-socials a:hover,
+.footer-portfolio-heading a:hover {
+  border-color: rgba(217, 154, 41, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.footer-nav {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.footer-nav ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-nav a {
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-nav a:hover {
+  color: #fff;
+  transform: translateX(2px);
+}
+
+.footer-portfolio {
+  display: grid;
+  gap: 14px;
+}
+
+.footer-portfolio-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.footer-project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.footer-project-card {
+  min-height: 154px;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.footer-project-card:hover {
+  border-color: rgba(217, 154, 41, 0.62);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.footer-project-card span {
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.footer-project-card strong {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
 .powered-by {
+  grid-column: 1 / -1;
   width: 100%;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
   font-size: 0.9rem;
 }
 
@@ -1110,7 +1236,9 @@ figcaption {
   .funding-note-grid,
   .testimonial-grid,
   .enquiry-section,
-  .lead-panel {
+  .lead-panel,
+  .site-footer,
+  .footer-project-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1220,6 +1348,20 @@ figcaption {
 
   .site-header nav a {
     font-size: 0.84rem;
+  }
+
+  .site-footer {
+    gap: 22px;
+    padding: 30px 16px 24px;
+  }
+
+  .footer-portfolio-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-project-card {
+    min-height: 0;
   }
 
   .wa-widget {
