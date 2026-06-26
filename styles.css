@@ -480,6 +480,9 @@ figcaption {
 .hidden-field {
   position: absolute;
   left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .form-status {
@@ -777,7 +780,8 @@ figcaption {
 
   .site-header nav {
     width: 100%;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    overflow-x: visible;
     padding-bottom: 4px;
   }
 
@@ -786,6 +790,7 @@ figcaption {
   }
 
   .hero-content {
+    width: calc(100vw - 32px);
     margin: 0 auto;
     padding: 46px 0 62px;
   }
@@ -836,7 +841,36 @@ figcaption {
   }
 
   h1 {
-    font-size: clamp(2.3rem, 14vw, 3.8rem);
+    font-size: clamp(2rem, 10.5vw, 3rem);
+    line-height: 1.02;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 8vw, 2.45rem);
+    line-height: 1.08;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+  }
+
+  .hero-copy,
+  .split > div:first-child p:not(.eyebrow),
+  .section-heading,
+  .lead-panel p,
+  .enquiry-copy p {
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .hero-actions .button {
+    flex: 1 1 150px;
+    min-width: 0;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   .section {
@@ -844,6 +878,14 @@ figcaption {
     padding-bottom: 34px;
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .site-header nav {
+    gap: 8px 10px;
+  }
+
+  .site-header nav a {
+    font-size: 0.84rem;
   }
 
   .wa-widget {
