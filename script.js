@@ -1,5 +1,43 @@
 const form = document.querySelector("#enquiryForm");
 const statusEl = document.querySelector("#formStatus");
+const submissionBalloons = document.querySelector("#submissionBalloons");
+
+function launchSubmissionBalloons() {
+  if (!submissionBalloons || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const colors = [
+    ["#25d366", "#6cf19a"],
+    ["#d99a29", "#f2c56e"],
+    ["#f24b5d", "#ff8b98"],
+    ["#0f5f55", "#35b69f"]
+  ];
+
+  submissionBalloons.replaceChildren();
+
+  Array.from({ length: 12 }).forEach((_, index) => {
+    const balloon = document.createElement("span");
+    const [color, light] = colors[index % colors.length];
+    const size = 28 + (index % 4) * 5;
+    const left = 8 + ((index * 8) % 86);
+    const drift = index % 2 === 0 ? 20 + index * 2 : -22 - index * 2;
+    const tilt = index % 2 === 0 ? -8 : 9;
+    const duration = 2.6 + (index % 3) * 0.25;
+
+    balloon.className = "submission-balloon";
+    balloon.style.setProperty("--balloon-color", color);
+    balloon.style.setProperty("--balloon-light", light);
+    balloon.style.setProperty("--balloon-size", `${size}px`);
+    balloon.style.setProperty("--balloon-left", `${left}%`);
+    balloon.style.setProperty("--balloon-drift", `${drift}px`);
+    balloon.style.setProperty("--balloon-tilt", `${tilt}deg`);
+    balloon.style.setProperty("--balloon-end-tilt", `${tilt * -1}deg`);
+    balloon.style.setProperty("--balloon-duration", `${duration}s`);
+    balloon.style.animationDelay = `${index * 0.08}s`;
+    submissionBalloons.appendChild(balloon);
+  });
+
+  window.setTimeout(() => submissionBalloons.replaceChildren(), 3600);
+}
 
 document.querySelectorAll("[data-fill-lead]").forEach((button) => {
   button.addEventListener("click", () => {
@@ -56,6 +94,7 @@ if (form && statusEl) {
       statusEl.classList.add("success");
       statusEl.textContent =
         result.message || "Thank you for your submission, we will get back to you as soon as possible.";
+      launchSubmissionBalloons();
       form.reset();
     } catch (error) {
       statusEl.classList.add("error");
