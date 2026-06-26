@@ -84,7 +84,7 @@ a {
 
 .hero {
   position: relative;
-  min-height: calc(100vh - 68px);
+  min-height: min(760px, calc(100vh - 68px));
   display: grid;
   align-items: center;
   overflow: hidden;
@@ -112,7 +112,7 @@ a {
   position: relative;
   width: min(760px, calc(100% - 36px));
   margin-left: clamp(18px, 7vw, 92px);
-  padding: 70px 0 120px;
+  padding: 56px 0 84px;
   color: #fff;
 }
 
@@ -154,7 +154,7 @@ h3 {
 
 .hero-copy {
   max-width: 660px;
-  margin: 24px 0 0;
+  margin: 18px 0 0;
   color: rgba(255, 255, 255, 0.88);
   font-size: 1.16rem;
 }
@@ -164,7 +164,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 30px;
+  margin-top: 22px;
 }
 
 .button {
@@ -196,7 +196,7 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
   max-width: 780px;
-  margin: 44px 0 0;
+  margin: 30px 0 0;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
@@ -220,13 +220,13 @@ h3 {
 }
 
 .section {
-  padding: clamp(64px, 9vw, 118px) clamp(18px, 5vw, 72px);
+  padding: clamp(38px, 5vw, 68px) clamp(18px, 5vw, 72px);
 }
 
 .split {
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-  gap: clamp(32px, 6vw, 78px);
+  gap: clamp(24px, 4vw, 48px);
   align-items: start;
 }
 
@@ -242,7 +242,7 @@ h3 {
 .grant-cards,
 .testimonial-grid {
   display: grid;
-  gap: 18px;
+  gap: 14px;
 }
 
 .feature-grid {
@@ -260,15 +260,15 @@ h3 {
 }
 
 .feature-grid article {
-  min-height: 230px;
-  padding: 24px;
+  min-height: 200px;
+  padding: 20px;
 }
 
 .icon {
   display: grid;
   width: 48px;
   height: 48px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   place-items: center;
   color: #fff;
   background: var(--green);
@@ -295,7 +295,7 @@ h3 {
 
 .section-heading {
   max-width: 850px;
-  margin-bottom: 34px;
+  margin-bottom: 22px;
 }
 
 .section-heading.compact {
@@ -307,7 +307,7 @@ h3 {
 }
 
 .grant-cards article {
-  padding: clamp(24px, 4vw, 38px);
+  padding: clamp(20px, 3vw, 30px);
 }
 
 ul {
@@ -320,7 +320,7 @@ li + li {
 
 .source-note {
   max-width: 980px;
-  margin: 22px 0 0;
+  margin: 14px 0 0;
   color: var(--muted);
   font-size: 0.94rem;
 }
@@ -330,15 +330,15 @@ li + li {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   padding: 0;
-  margin: 36px 0 0;
+  margin: 22px 0 0;
   list-style: none;
   counter-reset: steps;
 }
 
 .timeline li {
   position: relative;
-  min-height: 270px;
-  padding: 30px 22px;
+  min-height: 225px;
+  padding: 24px 20px;
   border-top: 4px solid var(--green);
   border-right: 1px solid var(--line);
   background: #fff;
@@ -373,7 +373,7 @@ li + li {
 
 .step {
   display: inline-flex;
-  margin-bottom: 42px;
+  margin-bottom: 26px;
   color: var(--coral);
   font-size: 0.85rem;
   font-weight: 900;
@@ -382,7 +382,7 @@ li + li {
 .lead-panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 28px;
+  gap: 20px;
   align-items: center;
   color: #fff;
   background: var(--green-dark);
@@ -402,9 +402,9 @@ li + li {
 }
 
 .testimonial-grid figure {
-  min-height: 220px;
+  min-height: 190px;
   margin: 0;
-  padding: 26px;
+  padding: 22px;
 }
 
 blockquote {
@@ -413,7 +413,7 @@ blockquote {
 }
 
 figcaption {
-  margin-top: 22px;
+  margin-top: 16px;
   color: var(--muted);
   font-size: 0.92rem;
   font-weight: 700;
@@ -422,7 +422,7 @@ figcaption {
 .enquiry-section {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(320px, 1.15fr);
-  gap: clamp(28px, 5vw, 70px);
+  gap: clamp(22px, 4vw, 44px);
   align-items: start;
 }
 
@@ -434,8 +434,8 @@ figcaption {
 .enquiry-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  padding: clamp(20px, 4vw, 32px);
+  gap: 12px;
+  padding: clamp(18px, 3vw, 26px);
 }
 
 .enquiry-form label {
@@ -787,7 +787,7 @@ figcaption {
 
   .hero-content {
     margin: 0 auto;
-    padding: 68px 0 96px;
+    padding: 46px 0 62px;
   }
 
   .hero-stats,
@@ -813,7 +813,7 @@ figcaption {
   }
 
   .timeline li + li {
-    margin-top: 14px;
+    margin-top: 10px;
   }
 
   .timeline li::after {
@@ -821,7 +821,7 @@ figcaption {
   }
 
   .step {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
 }
 
@@ -840,6 +840,8 @@ figcaption {
   }
 
   .section {
+    padding-top: 34px;
+    padding-bottom: 34px;
     padding-left: 16px;
     padding-right: 16px;
   }
