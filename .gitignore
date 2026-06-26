@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.DS_Store
+.playwright-mcp/
+output/playwright/
+*.log
+*.pem
+*.key
+credentials.json
+secrets.json
