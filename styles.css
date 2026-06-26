@@ -530,6 +530,7 @@ figcaption {
   display: grid;
   gap: 16px;
   margin-top: 18px;
+  scroll-margin-top: 92px;
   padding: clamp(18px, 3vw, 26px);
   border: 1px solid var(--line);
   border-radius: 8px;
