@@ -766,6 +766,7 @@ figcaption {
   font-weight: 900;
   line-height: 1;
   cursor: pointer;
+  animation: wa-button-pulse 1.85s ease-in-out infinite;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -780,6 +781,17 @@ figcaption {
   filter: blur(20px);
   opacity: 0.95;
   animation: wa-glow 2s ease-in-out infinite;
+}
+
+.wa-launcher::after {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  z-index: -1;
+  border: 4px solid rgba(37, 211, 102, 0.58);
+  border-radius: inherit;
+  opacity: 0;
+  animation: wa-ripple 1.85s ease-out infinite;
 }
 
 .wa-launcher-label {
@@ -797,22 +809,68 @@ figcaption {
   transform: translateY(-2px);
 }
 
-@keyframes wa-glow {
+@keyframes wa-button-pulse {
   0%,
   100% {
-    transform: scale(0.92);
-    opacity: 0.72;
+    box-shadow:
+      0 0 0 10px rgba(37, 211, 102, 0.24),
+      0 0 0 22px rgba(37, 211, 102, 0.12),
+      0 0 54px rgba(37, 211, 102, 0.82),
+      0 24px 58px rgba(37, 211, 102, 0.48),
+      0 10px 24px rgba(5, 31, 23, 0.3);
   }
 
   50% {
-    transform: scale(1.18);
+    box-shadow:
+      0 0 0 15px rgba(37, 211, 102, 0.36),
+      0 0 0 34px rgba(37, 211, 102, 0.18),
+      0 0 92px rgba(37, 211, 102, 1),
+      0 30px 78px rgba(37, 211, 102, 0.66),
+      0 12px 30px rgba(5, 31, 23, 0.36);
+  }
+}
+
+@keyframes wa-glow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.76;
+  }
+
+  50% {
+    transform: scale(1.3);
     opacity: 1;
   }
 }
 
+@keyframes wa-ripple {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.92);
+  }
+
+  72% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .wa-launcher {
+    animation: none;
+  }
+
   .wa-launcher::before {
     animation: none;
+  }
+
+  .wa-launcher::after {
+    display: none;
   }
 }
 
