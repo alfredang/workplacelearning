@@ -228,13 +228,13 @@ h3 {
 }
 
 .section {
-  padding: clamp(38px, 5vw, 68px) clamp(18px, 5vw, 72px);
+  padding: clamp(20px, 2.6vw, 34px) clamp(18px, 5vw, 72px);
 }
 
 .split {
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-  gap: clamp(24px, 4vw, 48px);
+  gap: clamp(18px, 3vw, 34px);
   align-items: start;
 }
 
@@ -303,7 +303,7 @@ h3 {
 
 .section-heading {
   max-width: 850px;
-  margin-bottom: 22px;
+  margin-bottom: 12px;
 }
 
 .section-heading.compact {
@@ -327,7 +327,7 @@ li + li {
 }
 
 .source-note {
-  margin: 18px 0 0;
+  margin: 12px 0 0;
 }
 
 .funding-note {
@@ -377,8 +377,8 @@ li + li {
 .funding-note-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 16px;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 .funding-note-grid p {
@@ -399,7 +399,7 @@ li + li {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
   padding: 0;
-  margin: 34px 0 0;
+  margin: 18px 0 0;
   list-style: none;
   counter-reset: steps;
 }
@@ -456,7 +456,7 @@ li + li {
 .lead-panel {
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
-  gap: 20px;
+  gap: 16px;
   align-items: center;
   color: #fff;
   background: var(--green-dark);
@@ -471,7 +471,7 @@ li + li {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 18px;
+  margin-top: 12px;
 }
 
 .lead-proof-strip span {
@@ -539,6 +539,7 @@ li + li {
 
 .testimonials {
   background: #fff;
+  padding-bottom: clamp(10px, 1.4vw, 14px);
 }
 
 .testimonial-grid {
@@ -565,8 +566,8 @@ figcaption {
 
 .portfolio-showcase {
   display: grid;
-  gap: 16px;
-  margin-top: 18px;
+  gap: 12px;
+  margin-top: 10px;
   scroll-margin-top: 92px;
   padding: clamp(18px, 3vw, 26px);
   border: 1px solid var(--line);
@@ -631,8 +632,9 @@ figcaption {
 .enquiry-section {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(320px, 1.15fr);
-  gap: clamp(22px, 4vw, 44px);
+  gap: clamp(18px, 3vw, 32px);
   align-items: start;
+  padding-top: clamp(10px, 1.4vw, 14px);
 }
 
 .contact-direct a {
@@ -1341,7 +1343,7 @@ figcaption {
   .hero-content {
     width: calc(100vw - 32px);
     margin: 0 auto;
-    padding: 46px 0 62px;
+    padding: 28px 0 36px;
   }
 
   .hero-stats,
@@ -1359,7 +1361,7 @@ figcaption {
   .timeline {
     grid-template-columns: 1fr;
     gap: 12px;
-    margin-top: 18px;
+    margin-top: 12px;
   }
 
   .timeline::before {
@@ -1446,10 +1448,18 @@ figcaption {
   }
 
   .section {
-    padding-top: 34px;
-    padding-bottom: 34px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .testimonials {
+    padding-bottom: 10px;
+  }
+
+  .enquiry-section {
+    padding-top: 10px;
   }
 
   .funding-note {
