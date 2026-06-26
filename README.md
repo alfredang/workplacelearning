@@ -146,6 +146,8 @@ The local `.env` file is intentionally ignored by git.
 
 This repo includes a GitHub Actions workflow for GitHub Pages:
 
+> CI/CD webhook test commit: this line exists solely to trigger a deployment check.
+
 ```text
 .github/workflows/deploy-pages.yml
 ```
