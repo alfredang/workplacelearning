@@ -62,13 +62,14 @@ a {
 
 .brand-mark {
   display: grid;
-  width: 38px;
+  width: 42px;
   height: 38px;
   place-items: center;
   color: #fff;
   background: var(--green-dark);
   border-radius: 7px;
-  font-size: 0.86rem;
+  font-size: 0.78rem;
+  font-weight: 900;
 }
 
 .site-header nav a {
@@ -698,6 +699,7 @@ figcaption {
   border-radius: 50%;
   background: #25d366;
   color: #fff;
+  font-size: 0.78rem;
   font-weight: 900;
 }
 
