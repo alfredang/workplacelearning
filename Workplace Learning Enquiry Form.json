@@ -22,7 +22,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const body = $json.body || $json || {};\n\nfunction clean(value, fallback = '') {\n  return String(value ?? fallback)\n    .replace(/[\\u0000-\\u001f\\u007f]/g, ' ')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\nfunction escapeHtml(value) {\n  return clean(value)\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;')\n    .replace(/'/g, '&#039;');\n}\n\nfunction row(label, value) {\n  return `<tr>\n    <td style=\"width: 185px; padding: 10px 12px; border: 1px solid #dfe8e3; background: #f6faf8; font-weight: 700; color: #0b3d3b;\">${escapeHtml(label)}</td>\n    <td style=\"padding: 10px 12px; border: 1px solid #dfe8e3; color: #102424;\">${escapeHtml(value || '-')}</td>\n  </tr>`;\n}\n\nfunction scoreBand(score) {\n  if (score >= 70) return 'Hot lead';\n  if (score >= 45) return 'Qualified lead';\n  return 'Needs follow-up';\n}\n\nconst lead = {\n  submittedAt: new Date().toISOString(),\n  name: clean(body.name),\n  email: clean(body.email),\n  phone: clean(body.phone),\n  company: clean(body.company),\n  employeeCount: clean(body.employeeCount),\n  interest: clean(body.interest),\n  challenge: clean(body.challenge),\n  leadMagnet: clean(body.leadMagnet),\n  source: clean(body.source, 'LEA NACE workplace learning website'),\n  pageUrl: clean(body.pageUrl),\n  userAgent: clean(body.userAgent)\n};\n\nconst missing = [];\nfor (const field of ['name', 'email', 'company', 'challenge']) {\n  if (!lead[field]) missing.push(field);\n}\n\nlead.valid = missing.length === 0;\nlead.missingFields = missing;\nlead.leadScore = 0;\nif (lead.email.includes('@') && !/(gmail|yahoo|hotmail|outlook)\\./i.test(lead.email)) lead.leadScore += 15;\nif (lead.company) lead.leadScore += 20;\nif (lead.employeeCount) lead.leadScore += 15;\nif (/AI|NACE|LEA|job redesign|productivity|grant|automation|digital/i.test(lead.interest + ' ' + lead.challenge)) lead.leadScore += 30;\nif (lead.leadMagnet) lead.leadScore += 10;\n\nlead.leadStatus = scoreBand(lead.leadScore);\nlead.whatsAppUrl = lead.phone ? `https://wa.me/${lead.phone.replace(/\\D/g, '')}` : '';\nlead.subject = `Workplace Learning Enquiry: ${lead.company || lead.name || 'New Lead'}`;\nlead.replyTo = lead.email;\nlead.summary = [\n  `Name: ${lead.name || '-'}`,\n  `Email: ${lead.email || '-'}`,\n  `Phone: ${lead.phone || '-'}`,\n  `Company: ${lead.company || '-'}`,\n  `Employee count: ${lead.employeeCount || '-'}`,\n  `Interest: ${lead.interest || '-'}`,\n  `Lead magnet: ${lead.leadMagnet || '-'}`,\n  `Lead score: ${lead.leadScore} (${lead.leadStatus})`,\n  '',\n  'Challenge:',\n  lead.challenge || '-'\n].join('\\n');\n\nconst nextSteps = [\n  'Reply within 1 business day.',\n  'Confirm business challenge, target job roles, and project champion.',\n  'Check LEA/NACE fit, company size, and grant documentation readiness.',\n  lead.leadMagnet ? 'Send the Workplace Learning Grant-Fit Checklist.' : 'Offer the Workplace Learning Grant-Fit Checklist if relevant.'\n];\n\nlead.emailHtml = `<div style=\"font-family: Arial, Helvetica, sans-serif; max-width: 720px; color: #102424; line-height: 1.55;\">\n  <div style=\"background: #0b3d3b; color: #ffffff; padding: 22px 24px; border-radius: 8px 8px 0 0;\">\n    <p style=\"margin: 0 0 6px; color: #d99a29; font-size: 12px; font-weight: 800; text-transform: uppercase;\">LEA / NACE Workplace Learning Lead</p>\n    <h2 style=\"margin: 0; font-size: 24px; line-height: 1.2;\">${escapeHtml(lead.company || 'New workplace learning enquiry')}</h2>\n    <p style=\"margin: 10px 0 0; color: #dcebe6;\">${escapeHtml(lead.leadStatus)} • Score ${lead.leadScore}/90</p>\n  </div>\n\n  <table cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: collapse; width: 100%; border: 1px solid #dfe8e3; border-top: 0;\">\n    ${row('Submitted', lead.submittedAt)}\n    ${row('Name', lead.name)}\n    ${row('Email', lead.email)}\n    ${row('Phone / WhatsApp', lead.phone)}\n    ${row('Company', lead.company)}\n    ${row('Employee Count', lead.employeeCount)}\n    ${row('Main Interest', lead.interest)}\n    ${row('Lead Magnet', lead.leadMagnet)}\n    ${row('Source', lead.source)}\n  </table>\n\n  <div style=\"padding: 20px 24px; border: 1px solid #dfe8e3; border-top: 0; background: #ffffff;\">\n    <h3 style=\"margin: 0 0 10px; color: #0b3d3b;\">Project Challenge</h3>\n    <p style=\"margin: 0; white-space: pre-wrap;\">${escapeHtml(lead.challenge || '-')}</p>\n  </div>\n\n  <div style=\"padding: 20px 24px; border: 1px solid #dfe8e3; border-top: 0; background: #f6faf8;\">\n    <h3 style=\"margin: 0 0 10px; color: #0b3d3b;\">Suggested Follow-Up</h3>\n    <ol style=\"margin: 0; padding-left: 20px;\">\n      ${nextSteps.map((step) => `<li style=\"margin: 6px 0;\">${escapeHtml(step)}</li>`).join('')}\n    </ol>\n  </div>\n\n  <div style=\"padding: 16px 24px; border: 1px solid #dfe8e3; border-top: 0; border-radius: 0 0 8px 8px; background: #ffffff; color: #5d6d6b; font-size: 13px;\">\n    <p style=\"margin: 0 0 6px;\">Page URL: ${escapeHtml(lead.pageUrl || '-')}</p>\n    <p style=\"margin: 0;\">User agent: ${escapeHtml(lead.userAgent || '-')}</p>\n  </div>\n</div>`;\n\nreturn [{ json: lead }];"
+        "jsCode": "const body = $json.body || $json || {};\n\nfunction clean(value, fallback = '') {\n  return String(value ?? fallback)\n    .replace(/[\\u0000-\\u001f\\u007f]/g, ' ')\n    .replace(/\\s+/g, ' ')\n    .trim();\n}\n\nfunction escapeHtml(value) {\n  return clean(value)\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;')\n    .replace(/\"/g, '&quot;')\n    .replace(/'/g, '&#039;');\n}\n\nfunction row(label, value) {\n  return `<tr>\n    <td style=\"width: 185px; padding: 10px 12px; border: 1px solid #dfe8e3; background: #f6faf8; font-weight: 700; color: #0b3d3b;\">${escapeHtml(label)}</td>\n    <td style=\"padding: 10px 12px; border: 1px solid #dfe8e3; color: #102424;\">${escapeHtml(value || '-')}</td>\n  </tr>`;\n}\n\nfunction scoreBand(score) {\n  if (score >= 70) return 'Hot lead';\n  if (score >= 45) return 'Qualified lead';\n  return 'Needs follow-up';\n}\n\nfunction boolYes(value) {\n  return /^(yes|true|1|on)$/i.test(clean(value));\n}\n\nconst lead = {\n  submittedAt: new Date().toISOString(),\n  name: clean(body.name),\n  email: clean(body.email),\n  phone: clean(body.phone),\n  company: clean(body.company),\n  employeeCount: clean(body.employeeCount),\n  interest: clean(body.interest),\n  challenge: clean(body.challenge),\n  leadMagnet: clean(body.leadMagnet),\n  leadMagnetAsset: clean(body.leadMagnet || 'Workplace Learning Grant-Fit Checklist'),\n  consent: boolYes(body.consent),\n  source: clean(body.source, 'LEA NACE workplace learning website'),\n  pageUrl: clean(body.pageUrl),\n  referrer: clean(body.referrer),\n  utmSource: clean(body.utmSource),\n  utmMedium: clean(body.utmMedium),\n  utmCampaign: clean(body.utmCampaign),\n  utmTerm: clean(body.utmTerm),\n  utmContent: clean(body.utmContent),\n  userAgent: clean(body.userAgent)\n};\n\nconst missing = [];\nfor (const field of ['name', 'email', 'company', 'challenge']) {\n  if (!lead[field]) missing.push(field);\n}\nif (!lead.consent) missing.push('consent');\n\nlead.valid = missing.length === 0;\nlead.missingFields = missing;\nlead.leadScore = 0;\nif (lead.email.includes('@') && !/(gmail|yahoo|hotmail|outlook)\\./i.test(lead.email)) lead.leadScore += 15;\nif (lead.company) lead.leadScore += 20;\nif (lead.employeeCount) lead.leadScore += 15;\nif (/AI|NACE|LEA|job redesign|productivity|grant|automation|digital/i.test(lead.interest + ' ' + lead.challenge)) lead.leadScore += 30;\nif (lead.leadMagnet && !/no resource/i.test(lead.leadMagnet)) lead.leadScore += 10;\nif (lead.utmCampaign || lead.referrer) lead.leadScore += 5;\n\nlead.leadStatus = scoreBand(lead.leadScore);\nlead.whatsAppUrl = lead.phone ? `https://wa.me/${lead.phone.replace(/\\D/g, '')}` : '';\nlead.subject = `Workplace Learning Enquiry: ${lead.company || lead.name || 'New Lead'}`;\nlead.replyTo = lead.email;\nlead.metadataJson = JSON.stringify({\n  valid: lead.valid,\n  missingFields: lead.missingFields,\n  userAgent: lead.userAgent,\n  pageUrl: lead.pageUrl,\n  referrer: lead.referrer,\n  utm: {\n    source: lead.utmSource,\n    medium: lead.utmMedium,\n    campaign: lead.utmCampaign,\n    term: lead.utmTerm,\n    content: lead.utmContent\n  }\n});\nlead.summary = [\n  `Name: ${lead.name || '-'}`,\n  `Email: ${lead.email || '-'}`,\n  `Phone: ${lead.phone || '-'}`,\n  `Company: ${lead.company || '-'}`,\n  `Employee count: ${lead.employeeCount || '-'}`,\n  `Interest: ${lead.interest || '-'}`,\n  `Lead magnet: ${lead.leadMagnet || '-'}`,\n  `Consent: ${lead.consent ? 'Yes' : 'No'}`,\n  `Lead score: ${lead.leadScore} (${lead.leadStatus})`,\n  '',\n  'Challenge:',\n  lead.challenge || '-'\n].join('\\n');\n\nconst nextSteps = [\n  'Reply within 1 business day.',\n  'Confirm business challenge, target job roles, and project champion.',\n  'Check LEA/NACE fit, company size, and grant documentation readiness.',\n  lead.leadMagnet && !/no resource/i.test(lead.leadMagnet)\n    ? `Send: ${lead.leadMagnet}.`\n    : 'Offer the Workplace Learning Grant-Fit Checklist if relevant.'\n];\n\nlead.emailHtml = `<div style=\"font-family: Arial, Helvetica, sans-serif; max-width: 720px; color: #102424; line-height: 1.55;\">\n  <div style=\"background: #0b3d3b; color: #ffffff; padding: 22px 24px; border-radius: 8px 8px 0 0;\">\n    <p style=\"margin: 0 0 6px; color: #d99a29; font-size: 12px; font-weight: 800; text-transform: uppercase;\">LEA / NACE Workplace Learning Lead</p>\n    <h2 style=\"margin: 0; font-size: 24px; line-height: 1.2;\">${escapeHtml(lead.company || 'New workplace learning enquiry')}</h2>\n    <p style=\"margin: 10px 0 0; color: #dcebe6;\">${escapeHtml(lead.leadStatus)} • Score ${lead.leadScore}/95</p>\n  </div>\n\n  <table cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: collapse; width: 100%; border: 1px solid #dfe8e3; border-top: 0;\">\n    ${row('Submitted', lead.submittedAt)}\n    ${row('Name', lead.name)}\n    ${row('Email', lead.email)}\n    ${row('Phone / WhatsApp', lead.phone)}\n    ${row('Company', lead.company)}\n    ${row('Employee Count', lead.employeeCount)}\n    ${row('Main Interest', lead.interest)}\n    ${row('Lead Magnet', lead.leadMagnet)}\n    ${row('Consent', lead.consent ? 'Yes' : 'No')}\n    ${row('UTM Campaign', lead.utmCampaign)}\n    ${row('Source', lead.source)}\n  </table>\n\n  <div style=\"padding: 20px 24px; border: 1px solid #dfe8e3; border-top: 0; background: #ffffff;\">\n    <h3 style=\"margin: 0 0 10px; color: #0b3d3b;\">Project Challenge</h3>\n    <p style=\"margin: 0; white-space: pre-wrap;\">${escapeHtml(lead.challenge || '-')}</p>\n  </div>\n\n  <div style=\"padding: 20px 24px; border: 1px solid #dfe8e3; border-top: 0; background: #f6faf8;\">\n    <h3 style=\"margin: 0 0 10px; color: #0b3d3b;\">Suggested Follow-Up</h3>\n    <ol style=\"margin: 0; padding-left: 20px;\">\n      ${nextSteps.map((step) => `<li style=\"margin: 6px 0;\">${escapeHtml(step)}</li>`).join('')}\n    </ol>\n  </div>\n\n  <div style=\"padding: 16px 24px; border: 1px solid #dfe8e3; border-top: 0; border-radius: 0 0 8px 8px; background: #ffffff; color: #5d6d6b; font-size: 13px;\">\n    <p style=\"margin: 0 0 6px;\">Page URL: ${escapeHtml(lead.pageUrl || '-')}</p>\n    <p style=\"margin: 0 0 6px;\">Referrer: ${escapeHtml(lead.referrer || '-')}</p>\n    <p style=\"margin: 0;\">User agent: ${escapeHtml(lead.userAgent || '-')}</p>\n  </div>\n</div>`;\n\nreturn [{ json: lead }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -36,16 +36,16 @@
     {
       "parameters": {
         "sendTo": "angch@tertiaryinfotech.com",
-        "subject": "={{ $json.subject }}",
-        "message": "={{ $json.emailHtml }}",
+        "subject": "={{ $(\"Normalize Lead\").item.json.subject }}",
+        "message": "={{ $(\"Normalize Lead\").item.json.emailHtml }}",
         "options": {
-          "replyTo": "={{ $json.replyTo }}"
+          "replyTo": "={{ $(\"Normalize Lead\").item.json.replyTo }}"
         }
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
       "position": [
-        360,
+        600,
         0
       ],
       "id": "f8694b73-1252-4275-98ab-9c4a5f03ad87",
@@ -61,7 +61,7 @@
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ { \"ok\": true, \"message\": \"Thank you. Your enquiry has been sent.\", \"leadStatus\": $(\"Normalize Lead\").item.json.leadStatus } }}",
+        "responseBody": "={{ { \"ok\": true, \"message\": \"Thank you. Your enquiry has been sent. We will send the selected resource and next step shortly.\", \"leadStatus\": $(\"Normalize Lead\").item.json.leadStatus, \"leadMagnet\": $(\"Normalize Lead\").item.json.leadMagnet } }}",
         "options": {
           "responseHeaders": {
             "entries": [
@@ -80,11 +80,278 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        600,
+        840,
         0
       ],
       "id": "96637f05-6298-45b7-8ef8-0f4c5843199e",
       "name": "Respond Success"
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "xePI7v6NFQgsF7vy",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "SubmittedAt": "={{ $json.submittedAt }}",
+            "Name": "={{ $json.name }}",
+            "Email": "={{ $json.email }}",
+            "Phone": "={{ $json.phone }}",
+            "Company": "={{ $json.company }}",
+            "EmployeeCount": "={{ $json.employeeCount }}",
+            "Interest": "={{ $json.interest }}",
+            "LeadMagnet": "={{ $json.leadMagnet }}",
+            "LeadMagnetAsset": "={{ $json.leadMagnetAsset }}",
+            "Consent": "={{ $json.consent }}",
+            "LeadScore": "={{ $json.leadScore }}",
+            "LeadStatus": "={{ $json.leadStatus }}",
+            "Source": "={{ $json.source }}",
+            "PageUrl": "={{ $json.pageUrl }}",
+            "Referrer": "={{ $json.referrer }}",
+            "UtmSource": "={{ $json.utmSource }}",
+            "UtmMedium": "={{ $json.utmMedium }}",
+            "UtmCampaign": "={{ $json.utmCampaign }}",
+            "UtmTerm": "={{ $json.utmTerm }}",
+            "UtmContent": "={{ $json.utmContent }}",
+            "WhatsAppUrl": "={{ $json.whatsAppUrl }}",
+            "Challenge": "={{ $json.challenge }}",
+            "UserAgent": "={{ $json.userAgent }}",
+            "Metadata": "={{ $json.metadataJson }}"
+          },
+          "schema": [
+            {
+              "id": "SubmittedAt",
+              "displayName": "SubmittedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "date",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EmployeeCount",
+              "displayName": "EmployeeCount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Interest",
+              "displayName": "Interest",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LeadMagnet",
+              "displayName": "LeadMagnet",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LeadMagnetAsset",
+              "displayName": "LeadMagnetAsset",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Consent",
+              "displayName": "Consent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LeadScore",
+              "displayName": "LeadScore",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LeadStatus",
+              "displayName": "LeadStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Source",
+              "displayName": "Source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PageUrl",
+              "displayName": "PageUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Referrer",
+              "displayName": "Referrer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UtmSource",
+              "displayName": "UtmSource",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UtmMedium",
+              "displayName": "UtmMedium",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UtmCampaign",
+              "displayName": "UtmCampaign",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UtmTerm",
+              "displayName": "UtmTerm",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UtmContent",
+              "displayName": "UtmContent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "WhatsAppUrl",
+              "displayName": "WhatsAppUrl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Challenge",
+              "displayName": "Challenge",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UserAgent",
+              "displayName": "UserAgent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Metadata",
+              "displayName": "Metadata",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "store-workplace-learning-lead",
+      "name": "Store Lead",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        360,
+        0
+      ]
     }
   ],
   "pinData": {},
@@ -101,6 +368,17 @@
       ]
     },
     "Normalize Lead": {
+      "main": [
+        [
+          {
+            "node": "Store Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store Lead": {
       "main": [
         [
           {

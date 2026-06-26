@@ -21,7 +21,7 @@
 
 Workplace Learning is a single-page lead generation website for LEA and NACE workplace learning enquiries. It explains workplace learning, AI transformation, job redesign, grant pathways, the consultation process, testimonials, and enquiry options in one static site.
 
-The enquiry form posts directly to a published n8n webhook, which formats the lead, scores it, emails the enquiry to `angch@tertiaryinfotech.com`, and returns a JSON success response to the browser.
+The enquiry form posts directly to a published n8n webhook, which formats the lead, scores it, stores it in an n8n Data Table, emails the enquiry to `angch@tertiaryinfotech.com`, and returns a JSON success response to the browser.
 
 ## Features
 
@@ -30,10 +30,10 @@ The enquiry form posts directly to a published n8n webhook, which formats the le
 - Workplace learning, AI transformation, and job redesign content
 - LEA/NACE grant-fit explanation with careful eligibility wording
 - Visual process timeline from discovery to project start
-- Lead magnet CTA for a Workplace Learning Grant-Fit Checklist
+- Lead magnet CTAs for a grant-fit checklist, AI/job redesign map, and eligibility snapshot
 - Testimonials and WhatsApp floating enquiry widget
-- Static enquiry form integrated with n8n
-- Published n8n workflow with formatted HTML email and lead scoring
+- Static enquiry form integrated with n8n, UTM/referrer capture, and consent tracking
+- Published n8n workflow with Data Table storage, formatted HTML email, and lead scoring
 - GitHub Pages workflow for static deployment
 
 ## Tech Stack
@@ -42,6 +42,7 @@ The enquiry form posts directly to a published n8n webhook, which formats the le
 | --- | --- |
 | Frontend | HTML, CSS, JavaScript |
 | Automation | n8n webhook workflow |
+| Lead storage | n8n Data Table |
 | Email delivery | n8n Gmail node |
 | Hosting | GitHub Pages |
 | SEO | Meta tags, canonical URL, sitemap, robots.txt, JSON-LD |
@@ -65,6 +66,10 @@ Normalize Lead code node
   |-- sanitize fields
   |-- score lead
   |-- generate styled email HTML
+  |-- map lead magnet + attribution fields
+  |
+  v
+n8n Data Table: Workplace Learning Leads
   |
   v
 Gmail node -> angch@tertiaryinfotech.com
@@ -120,6 +125,14 @@ The workflow file is:
 ```text
 Workplace Learning Enquiry Form.json
 ```
+
+The workflow stores structured leads in this n8n Data Table:
+
+```text
+Workplace Learning Leads
+```
+
+Stored fields include contact details, selected lead magnet, consent, UTM source/medium/campaign/term/content, referrer, page URL, lead score, lead status, and project challenge.
 
 To publish or update the n8n workflow, create `.env` from `.env.example`, add a valid n8n API key, and run:
 

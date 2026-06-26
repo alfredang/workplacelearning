@@ -3,12 +3,28 @@ const statusEl = document.querySelector("#formStatus");
 
 document.querySelectorAll("[data-fill-lead]").forEach((button) => {
   button.addEventListener("click", () => {
-    const checkbox = document.querySelector('input[name="leadMagnet"]');
-    if (checkbox) checkbox.checked = true;
+    const leadMagnet = document.querySelector('[name="leadMagnet"]');
+    if (leadMagnet) leadMagnet.value = button.dataset.fillLead;
   });
 });
 
 if (form && statusEl) {
+  const params = new URLSearchParams(window.location.search);
+  const attribution = {
+    pageUrl: window.location.href,
+    referrer: document.referrer,
+    utmSource: params.get("utm_source") || "",
+    utmMedium: params.get("utm_medium") || "",
+    utmCampaign: params.get("utm_campaign") || "",
+    utmTerm: params.get("utm_term") || "",
+    utmContent: params.get("utm_content") || ""
+  };
+
+  Object.entries(attribution).forEach(([name, value]) => {
+    const input = form.elements[name];
+    if (input) input.value = value;
+  });
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     statusEl.className = "form-status";
@@ -17,7 +33,7 @@ if (form && statusEl) {
     try {
       const formData = new FormData(form);
       const body = Object.fromEntries(formData.entries());
-      body.pageUrl = window.location.href;
+      Object.assign(body, attribution);
       body.userAgent = navigator.userAgent;
 
       const response = await fetch(form.action, {
