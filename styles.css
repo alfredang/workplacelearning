@@ -1021,6 +1021,15 @@ figcaption {
   font-size: 0.86rem;
 }
 
+.footer-copyright {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  color: rgba(230, 243, 239, 0.62);
+  font-size: 0.86rem;
+}
+
 .wa-widget {
   position: fixed;
   right: clamp(16px, 3vw, 32px);
