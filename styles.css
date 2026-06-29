@@ -1012,19 +1012,12 @@ figcaption {
   fill: #6de6ef;
 }
 
-.powered-by {
-  grid-column: 1 / -1;
-  width: 100%;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(230, 243, 239, 0.62);
-  font-size: 0.86rem;
-}
-
 .footer-copyright {
   grid-column: 1 / -1;
   width: 100%;
   margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
   text-align: center;
   color: rgba(230, 243, 239, 0.62);
   font-size: 0.86rem;
